@@ -6,10 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
@@ -43,18 +40,16 @@ public class Main extends Application {
 
         BorderPane bp = new BorderPane();
 
-        Rectangle rect = new Rectangle(0, 0, Screen.getPrimary().getBounds().getWidth(), 30); //À faire fonctionner
-        rect.setFill(Color.LIGHTGRAY);
-
         information = new Label("Bienvenue dans le modificateur d'images!");
 
-        StackPane sp = new StackPane(rect, information);
-        sp.setPadding(new Insets(5));
-        sp.setAlignment(Pos.CENTER_LEFT);
+        VBox vb = new VBox(information);
+        vb.setPadding(new Insets(5));
+        vb.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
+        vb.setAlignment(Pos.CENTER_LEFT);
 
         bp.setTop(setMenuBar());
         bp.setCenter(setCenter());
-        bp.setBottom(sp);
+        bp.setBottom(vb);
 
         main.setScene(new Scene(bp));
         main.setResizable(true);
