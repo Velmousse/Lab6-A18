@@ -8,8 +8,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -40,6 +38,8 @@ public class Main extends Application {
 
         BorderPane bp = new BorderPane();
 
+        ContextMenu contextMenu = setContextMenu();
+
         information = new Label("Bienvenue dans le modificateur d'images!");
 
         VBox vb = new VBox(information);
@@ -50,6 +50,7 @@ public class Main extends Application {
         bp.setTop(setMenuBar());
         bp.setCenter(setCenter());
         bp.setBottom(vb);
+        bp.getCenter().setOnContextMenuRequested(event -> contextMenu.show(bp.getCenter(), event.getScreenX(), event.getScreenY()));
 
         main.setScene(new Scene(bp));
         main.setResizable(true);
@@ -80,6 +81,30 @@ public class Main extends Application {
         actions.getItems().add(reinitialiser);
 
         return new MenuBar(fichiers, actions);
+    }
+
+    private ContextMenu setContextMenu() {
+        Menu fichiers = new Menu("Fichiers");
+        Menu actions = new Menu("Actions");
+        Menu images = new Menu("Charger une image");
+
+        CheckMenuItem image1 = new CheckMenuItem("Image #1");
+        image1.setOnAction(event -> setImage(1));
+
+        CheckMenuItem image2 = new CheckMenuItem("Image #2");
+        image2.setOnAction(event -> setImage(2));
+
+        CheckMenuItem image3 = new CheckMenuItem("Image #3");
+        image3.setOnAction(event -> setImage(3));
+
+        CheckMenuItem reinitialiser = new CheckMenuItem("Réinitialiser");
+        reinitialiser.setOnAction(event -> reset());
+
+        fichiers.getItems().add(images);
+        images.getItems().addAll(image1, image2, image3);
+        actions.getItems().add(reinitialiser);
+
+        return new ContextMenu(fichiers, actions);
     }
 
     private void setImage(int value) {
