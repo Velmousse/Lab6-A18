@@ -43,7 +43,7 @@ public class Main extends Application {
 
         BorderPane bp = new BorderPane();
 
-        Rectangle rect = new Rectangle(-10, -10, Screen.getPrimary().getBounds().getWidth(), 30);
+        Rectangle rect = new Rectangle(0, 0, Screen.getPrimary().getBounds().getWidth(), 30); //À faire fonctionner
         rect.setFill(Color.LIGHTGRAY);
 
         information = new Label("Bienvenue dans le modificateur d'images!");
@@ -113,17 +113,26 @@ public class Main extends Application {
         lTeinte = new Label("Teinte");
         lSaturation = new Label("Saturation");
 
+        Tooltip tLuminosite = new Tooltip("Rend l'image plus claire ou plus sombre"),
+                tContraste = new Tooltip("Diminue ou augmente la différence entre les couleurs"),
+                tTeinte = new Tooltip("Change la teinte (couleur) de l'image"),
+                tSaturation = new Tooltip("Diminue ou augmente l'intensité des couleurs");
+
         sLuminosite = new Slider(-1, 1, 0);
         sLuminosite.setOnMouseDragged(event -> colorAdjust.setBrightness(sLuminosite.getValue()));
+        sLuminosite.setTooltip(tLuminosite);
 
         sContraste = new Slider(-1, 1, 0);
         sContraste.setOnMouseDragged(event -> colorAdjust.setContrast(sContraste.getValue()));
+        sContraste.setTooltip(tContraste);
 
         sTeinte = new Slider(-1, 1, 0);
         sTeinte.setOnMouseDragged(event -> colorAdjust.setHue(sTeinte.getValue()));
+        sTeinte.setTooltip(tTeinte);
 
         sSaturation = new Slider(-1, 1, 0);
         sSaturation.setOnMouseDragged(event -> colorAdjust.setSaturation(sSaturation.getValue()));
+        sSaturation.setTooltip(tSaturation);
 
         imageView.setEffect(colorAdjust);
 
